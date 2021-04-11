@@ -78,8 +78,6 @@ dependencies {
     implementation(Deps.NAVIGATION_FRAG_KTX)
     implementation(Deps.navigation_ui_ktx)
 
-
-
     //Activity
     implementation(Deps.ACTIVITY_KTX)
     // Serialitation
