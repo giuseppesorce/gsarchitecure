@@ -12,11 +12,13 @@ android {
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
+        minSdkVersion(Sdk.MIN_SDK_VERSION)
+        targetSdkVersion(Sdk.TARGET_SDK_VERSION)
+        // app info
+        applicationId = AppCoordinates.APP_ID
+        versionCode = AppCoordinates.APP_VERSION_CODE
+        versionName = AppCoordinates.APP_VERSION_NAME
         applicationId = "com.giuseppesorce.gsarchitecture"
-        minSdk = 21
-        targetSdk = 30
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
