@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.giuseppesorce.architecture.ErrorState
 import com.giuseppesorce.architecture.LoadingState
 import com.giuseppesorce.architecture.viewmodels.BaseFlowViewModel
 import kotlinx.coroutines.Job
@@ -19,6 +18,7 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
     abstract fun handleState(state: State)
 
     private var uiStateJob: Job? = null
+    private var uiEventJob: Job? = null
     private var uiLoadingob: Job? = null
     abstract fun setupUI()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +32,10 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
         }
         uiStateJob = lifecycleScope.launch {
            provideBaseViewModel().uiState.collect { uiState -> handleUiState(uiState) }
-//            provideBaseViewModel().uiEvent.collect { uiEvent -> handleEvent(uiEvent) }
+        }
+        uiEventJob = lifecycleScope.launch {
 
+            provideBaseViewModel().uiEvent.collect { uiEvent -> handleEvent(uiEvent) }
         }
         uiLoadingob=lifecycleScope.launch {
             provideBaseViewModel().loadingState.collect { loading ->
@@ -55,6 +57,7 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
 
     override fun onDestroy() {
         super.onDestroy()
+        uiEventJob?.cancel()
         uiStateJob?.cancel()
         uiLoadingob?.cancel()
     }
@@ -64,7 +67,6 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
 
     private fun handleCommonState(commonState: LoadingState) {
         handleLoading(commonState)
-        //   handleError(commonState?.errorState)
     }
 
     open fun handleLoading(loadingState: LoadingState?) {
@@ -83,16 +85,4 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
     open fun showIdleState() {
         hideLoadingState()
     }
-
-    open fun handleError(errorState: ErrorState?) {
-        when (errorState) {
-            is ErrorState.UnknownError -> displayUnknownError()
-            is ErrorState.Error -> displayUnknownError()
-        }
-    }
-
-    open fun displayUnknownError() {
-    }
-
-
 }
