@@ -15,6 +15,7 @@ class MainViewModel @ViewModelInject constructor(
     BaseFlowViewModel<MainState, MainEvents>() {
     fun onChangeState() {
 
+        showLoading()
         _uiState.value = MainState.Print
 
     }

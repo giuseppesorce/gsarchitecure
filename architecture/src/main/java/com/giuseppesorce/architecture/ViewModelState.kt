@@ -1,9 +1,6 @@
-package it.milkman.architecture
+package com.giuseppesorce.architecture
 
-data class CommonState(
-    val loadingState: LoadingState = LoadingState.Idle,
-    val errorState: ErrorState = ErrorState.NoError
-)
+
 
 data class SimpleAlertData(
     val title: String="",
@@ -14,8 +11,9 @@ data class SimpleAlertData(
 )
 
 sealed class LoadingState {
-    object Idle : LoadingState()
-    object Loading : LoadingState()
+    class Idle : LoadingState()
+    class Loading : LoadingState()
+    class Empty : LoadingState()
 }
 
 sealed class ErrorState {

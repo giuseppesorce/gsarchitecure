@@ -5,97 +5,91 @@ package com.giuseppesorce.architecture.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.giuseppesorce.architecture.LiveEvent
-import com.giuseppesorce.architecture.model.StateUi
-import it.milkman.architecture.*
+import com.giuseppesorce.architecture.*
 
 
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 open class BaseFlowViewModel<State : Any, Event : Any> : ViewModel() {
 
-
-    val _uiState = MutableStateFlow<State?>(null)
-
+    // UI State
+   protected val _uiState = MutableStateFlow<State?>(null)
     val uiState: StateFlow<State?> = _uiState
 
-     private val stateLiveData: MutableLiveData<State> = MutableLiveData()
+    // UI Events
+    protected val _uiEvent = MutableStateFlow<Event?>(null)
+    val uiEvent: StateFlow<Event?> = _uiEvent
 
 
-    private val stateSimpleAlert: MutableLiveData<SimpleAlertData> = MutableLiveData()
-    private val commonStateLiveData: MutableLiveData<CommonState> = MutableLiveData()
-     val eventLiveData: LiveEvent<Event> = LiveEvent()
+    // Loader
+    protected val _loadingState = MutableStateFlow<LoadingState>(LoadingState.Empty())
+    val loadingState: StateFlow<LoadingState> = _loadingState
 
-    fun stateHolder(): LiveData<State> = stateLiveData
-    fun commonStateHolder(): LiveData<CommonState> = commonStateLiveData
-    fun eventHolder(): LiveData<Event> = eventLiveData
-    fun alertLiveData(): LiveData<SimpleAlertData> = stateSimpleAlert
+
+
+
 
      var viewState: State?
-        get() = stateLiveData.value
+        get() = uiState.value
         set(value) {
-            stateLiveData.value = value
+            _uiState.value = value
         }
 
-    private var commonState: CommonState
-        get() = commonStateLiveData.value ?: CommonState()
+    var showLoadingState: LoadingState
+        get() = loadingState.value
         set(value) {
-            commonStateLiveData.value = value
+            _loadingState.value = value
         }
 
 
 
     protected fun showAlert(titleRes:Int, resMessage:Int) {
-        stateSimpleAlert.value= SimpleAlertData(
-            titleRes = titleRes,
-            messageRes = resMessage
-        )
+//        stateSimpleAlert.value= SimpleAlertData(
+//            titleRes = titleRes,
+//            messageRes = resMessage
+//        )
     }
     protected fun showErrorAlert(title:String, message:String) {
         showAlert(title, message)
 
     }
     protected fun showAlert(title:String, message:String, codeMessage:Int=0) {
-        stateSimpleAlert.value=
-            SimpleAlertData(title, message, codeMessage=codeMessage)
+//        stateSimpleAlert.value=
+//            SimpleAlertData(title, message, codeMessage=codeMessage)
     }
 
     protected fun showAlert(title:String, message:String, codeMessage:Int=0, style:Int) {
-        stateSimpleAlert.value=
-            SimpleAlertData(title, message, codeMessage=codeMessage)
+//        stateSimpleAlert.value=
+//            SimpleAlertData(title, message, codeMessage=codeMessage)
     }
 
     protected fun emitEvent(event: Event) {
-        eventLiveData.value = event
+        _uiEvent.value = event
     }
 
-    override fun onCleared() {
-        // dispose and cancel all the current stuff
-    }
 
     protected fun showLoading() {
-        commonState = commonState.copy(loadingState = LoadingState.Loading)
+        showLoadingState= LoadingState.Loading()
     }
 
     protected fun hideLoading() {
-        commonState = commonState.copy(loadingState = LoadingState.Idle)
+        showLoadingState= LoadingState.Idle()
     }
 
     protected fun showError(message: String = "") {
-        commonState = commonState.copy(errorState = ErrorState.Error(message))
+
     }
 
     protected fun showUnknownError() {
-        commonState = commonState.copy(errorState = ErrorState.UnknownError)
+
     }
 
     fun dismissError() {
-        commonState = commonState.copy(errorState = ErrorState.NoError)
+
     }
 
     fun clearCommonState() {
-        commonState = CommonState()
+
     }
 }

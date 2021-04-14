@@ -4,50 +4,45 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.giuseppesorce.architecture.model.StateUi
+import com.giuseppesorce.architecture.ErrorState
+import com.giuseppesorce.architecture.LoadingState
 import com.giuseppesorce.architecture.viewmodels.BaseFlowViewModel
-import com.giuseppesorce.architecture.viewmodels.BaseViewModel
-
-import it.milkman.architecture.CommonState
-import it.milkman.architecture.ErrorState
-import it.milkman.architecture.LoadingState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
 abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppCompatActivity() {
 
 
-    abstract fun provideBaseViewModel(): BaseFlowViewModel<State ,  Event>
+    abstract fun provideBaseViewModel(): BaseFlowViewModel<State, Event>
     abstract fun handleState(state: State)
 
-    abstract fun handleEvent(event: Event)
+    private var uiStateJob: Job? = null
+    private var uiLoadingob: Job? = null
     abstract fun setupUI()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getDataBindingiView())
-        provideBaseViewModel()?.stateHolder()
-            .observe(this, Observer { state -> handleState(state) })
-        provideBaseViewModel()?.commonStateHolder()
-            .observe(this, Observer { state -> handleCommonState(state) })
-        provideBaseViewModel()?.eventHolder()
-            .observe(this, Observer { event -> handleEvent(event) })
         setupUI()
         observerData()
         initActivity()
-        if(intent !=null && intent.extras !=null){
+        if (intent != null && intent.extras != null) {
             onGetIntent(intent)
         }
+        uiStateJob = lifecycleScope.launch {
+           provideBaseViewModel().uiState.collect { uiState -> handleUiState(uiState) }
+//            provideBaseViewModel().uiEvent.collect { uiEvent -> handleEvent(uiEvent) }
 
-        lifecycleScope.launchWhenStarted {
-            // Triggers the flow and starts listening for values
-            provideBaseViewModel().uiState.collect { uiState ->
-               handleUiState(uiState)
-
+        }
+        uiLoadingob=lifecycleScope.launch {
+            provideBaseViewModel().loadingState.collect { loading ->
+                handleCommonState(loading)
             }
         }
-
-
     }
+
+    abstract fun handleEvent(uiEvent: Event?)
 
     abstract fun handleUiState(state: State?)
 
@@ -58,15 +53,21 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
     open fun initActivity() {
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        uiStateJob?.cancel()
+        uiLoadingob?.cancel()
+    }
+
     open fun observerData() {
     }
 
-    private fun handleCommonState(commonState: CommonState) {
-        handleLoading(commonState.loadingState)
-        handleError(commonState.errorState)
+    private fun handleCommonState(commonState: LoadingState) {
+        handleLoading(commonState)
+        //   handleError(commonState?.errorState)
     }
 
-    open fun handleLoading(loadingState: LoadingState) {
+    open fun handleLoading(loadingState: LoadingState?) {
         when (loadingState) {
             is LoadingState.Loading -> showLoadingState()
             is LoadingState.Idle -> showIdleState()
@@ -83,7 +84,7 @@ abstract class BaseFlowActivityViewBinding<State : Any, Event : Any>() : AppComp
         hideLoadingState()
     }
 
-    open fun handleError(errorState: ErrorState) {
+    open fun handleError(errorState: ErrorState?) {
         when (errorState) {
             is ErrorState.UnknownError -> displayUnknownError()
             is ErrorState.Error -> displayUnknownError()

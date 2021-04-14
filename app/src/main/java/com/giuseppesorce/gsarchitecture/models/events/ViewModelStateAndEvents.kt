@@ -5,9 +5,8 @@ import com.giuseppesorce.architecture.model.StateUi
 sealed class EmptyState
 sealed class EmptyEvents
 
- sealed  class MainState : StateUi() {
+ sealed  class MainState {
      object Print:MainState()
-
 }
 
 sealed class MainEvents {
