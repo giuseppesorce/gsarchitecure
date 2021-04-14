@@ -8,8 +8,6 @@ object AppCoordinates {
 
 object CondtantsBuild{
 
-
-
     const val BASEURL_BEER= "\"https://api.punkapi.com/v2/\""
     const val BASEURL=BASEURL_BEER
 

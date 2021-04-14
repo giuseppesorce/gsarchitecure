@@ -26,13 +26,17 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            isShrinkResources = true
+          //  isShrinkResources = true
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -44,6 +48,11 @@ android {
 }
 
 dependencies {
+
+    //modules
+    implementation(project(":architecture"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
 
     //dipendencies
@@ -87,9 +96,12 @@ dependencies {
     implementation(Kotlin.SERIALITATION_JSON)
     //timber
     implementation(Deps.TIMBE_DEP)
+
     // Coroutines
     implementation(Kotlin.COROUTINES)
     implementation(Kotlin.COROUTINES_ANDROID)
+
+
     // Retrofit
     implementation(Network.RETROFIT)
     implementation(Network.OKHTTP)

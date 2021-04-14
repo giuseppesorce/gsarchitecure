@@ -33,7 +33,7 @@ object Vers {
     //Room
     const val ROOM = "2.2.5"
     //Coroutines
-    const val COROUTINES_VERS = "1.4.0"
+    const val COROUTINES_VERS = "1.4.3"
     const val LIFECYCLE_VERSION = "2.2.0"
     // Network
     const val OKHTTP = "4.8.0"
@@ -139,6 +139,7 @@ object Kotlin {
     const val SERIALITATION_JSON =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Vers.SERIALITATION}"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Vers.COROUTINES_VERS}"
+    const val COROUTINES_KOTLIN_X = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${Vers.COROUTINES_VERS}}"
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.COROUTINES_VERS}"
     const val SERIALITATPION_JVM= "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:${Vers.SERIALITATION}"
 }

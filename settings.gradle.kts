@@ -3,7 +3,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 rootProject.name = "GSArchitecture"
@@ -12,3 +11,6 @@ include(":app")
 include(":domain")
 include(":data")
 include(":network")
+include(":architecture")
+include(":network")
+include(":persistence")
