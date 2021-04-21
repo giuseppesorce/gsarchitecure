@@ -16,8 +16,10 @@ sealed class MainEvents {
 data class ArticleHeadline(var value:String)
 
 
-// Represents different states for the LatestNews screen
-sealed class LatestNewsUiState {
-    data class Success(var news: List<ArticleHeadline>): LatestNewsUiState()
-    data class Error(var exception: Throwable): LatestNewsUiState()
+sealed class BeerListState{
+
+}
+
+sealed class BeerListEvents{
+
 }

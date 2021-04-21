@@ -1,9 +1,5 @@
 package com.giuseppesorce.gsarchitecture.features.start
 
-
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,7 +20,6 @@ class MainActivity : BaseFlowActivityViewBinding<MainState, MainEvents>() {
     override fun provideBaseViewModel(): BaseFlowViewModel<MainState, MainEvents> = viewModel
 
     override fun handleState(state: MainState) {
-
     }
 
     override fun handleEvent(event: MainEvents?) {
@@ -32,11 +27,6 @@ class MainActivity : BaseFlowActivityViewBinding<MainState, MainEvents>() {
     }
 
     override fun setupUI() {
-
-        Handler(Looper.myLooper()!!).postDelayed({
-            viewModel.onChangeState()
-
-        }, 4000)
     }
 
     override fun getDataBindingiView(): View {
@@ -45,13 +35,6 @@ class MainActivity : BaseFlowActivityViewBinding<MainState, MainEvents>() {
     }
 
     override fun handleUiState(state: MainState?) {
-
-        when (state) {
-            is MainState.Print -> {
-                Log.i("asarch", " PRINT")
-            }
-        }
-
     }
 
     override fun showLoadingState() {

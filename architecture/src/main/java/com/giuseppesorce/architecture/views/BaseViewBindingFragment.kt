@@ -1,12 +1,8 @@
 package com.giuseppesorce.architecture.views
-
-
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.giuseppesorce.architecture.LoadingState
@@ -22,7 +18,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewBindingFragment<State : Any, Event : Any>() : Fragment() {
 
-    var alerMaterial: AlertDialog?=null
+
 
     open var viewFrag: View? = null
     private var uiStateJob: Job? = null
@@ -61,9 +57,6 @@ abstract class BaseViewBindingFragment<State : Any, Event : Any>() : Fragment() 
         super.onSaveInstanceState(oldInstanceState)
         oldInstanceState.clear()
     }
-
-
-
 
 
 
