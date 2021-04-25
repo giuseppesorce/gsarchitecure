@@ -52,6 +52,7 @@ object Vers {
     const val KOTLIN_SERIALITATION = "1.0.0"
     //Coil
     const val COIL = "1.1.1"
+    const val LOTTIE_VERSION = "3.5.0"
     //activity extension
     const val ACTIVITY_KTX = "1.2.0"
     //Leak Canary
@@ -112,6 +113,7 @@ object Deps {
 
         const val COIL = "io.coil-kt:coil:${Vers.COIL}"
         const val COIL_BASE = "io.coil-kt:coil-base:${Vers.COIL}"
+        const val LOTTIE = "com.airbnb.android:lottie:${Vers.LOTTIE_VERSION}"
     }
 
     object ViewModel {

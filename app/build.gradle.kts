@@ -51,6 +51,7 @@ dependencies {
 
     //modules
     implementation(project(":architecture"))
+    implementation(project(":commons"))
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":network"))
@@ -93,11 +94,9 @@ dependencies {
     implementation(Kotlin.SERIALITATION_JSON)
     //timber
     implementation(Deps.TIMBE_DEP)
-
     // Coroutines
     implementation(Kotlin.COROUTINES)
     implementation(Kotlin.COROUTINES_ANDROID)
-
 
     // Retrofit
     implementation(Network.RETROFIT)
@@ -108,6 +107,8 @@ dependencies {
     implementation(Network.LOGGIG_INTERCEPTOR)
     //Coil
     implementation(Deps.UIDesign.COIL)
+    //Lottie
+    implementation(Deps.UIDesign.LOTTIE)
     //Base artifact without singleton
     implementation(Deps.UIDesign.COIL_BASE)
     //Leak Canary

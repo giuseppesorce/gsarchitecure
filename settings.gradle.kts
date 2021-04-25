@@ -15,3 +15,4 @@ include(":architecture")
 include(":network")
 include(":persistence")
 
+include(":commons")
