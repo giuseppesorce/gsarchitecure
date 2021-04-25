@@ -52,7 +52,6 @@ class BeersListAdapter(items: List<Beer> = emptyList()) :
                 scale(Scale.FIT)
                 transformations(RoundedCornersTransformation(0f, 0f, 0f, 0f))
             }
-
             return itemView
         }
     }
