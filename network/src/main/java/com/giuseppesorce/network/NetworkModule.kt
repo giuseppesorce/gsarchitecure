@@ -2,7 +2,7 @@ package com.giuseppesorce.network
 
 import com.giuseppesorce.data.api.ApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.safframework.http.interceptor.AndroidLoggingInterceptor
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +10,9 @@ import dagger.hilt.components.SingletonComponent
 import com.giuseppesorce.network.data.NetworkEnvironment
 import com.giuseppesorce.network.interceptors.AuthHeaderInterceptor
 import com.giuseppesorce.network.interceptors.DynamicHostInterceptor
+import com.giuseppesorce.data.network.ApiResultCallAdapterFactory
+import com.giuseppesorce.data.network.ApiResultConverterFactory
+import com.giuseppesorce.network.interceptors.logging.AndroidLoggingInterceptor
 
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -24,7 +27,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
 
     @Singleton
     @Provides
@@ -43,34 +45,38 @@ object NetworkModule {
             requestTag = "server",
             responseTag = "server"
         )
-        builder.addInterceptor(hostSelectionInterceptor)
+        // interceptor to change in runtime baseUrl
+        //builder.addInterceptor(hostSelectionInterceptor)
+        // a nice interceptor to print server response formatted
         builder.addInterceptor(loggingInterceptor)
+        // interceptor to custom header
         builder.addInterceptor(authHeaderInterceptor)
         return builder.build()
     }
 
-    @Provides
     @Singleton
+    @Provides
     fun provideRetrofit(
         json: Json,
         okHttpClient: OkHttpClient, environment: NetworkEnvironment
     ): Retrofit {
-
-
         val contentType = "application/json".toMediaType() //content-type:
         return Retrofit.Builder()
             .baseUrl(environment.base_url)
             .client(okHttpClient)
+            .addConverterFactory(ApiResultConverterFactory)
+            .addCallAdapterFactory(ApiResultCallAdapterFactory)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }
 
-    @Provides
+
     @Singleton
+    @Provides
     fun provideEnviroment() = NetworkEnvironment()
 
-    @Provides
     @Singleton
+    @Provides
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
 

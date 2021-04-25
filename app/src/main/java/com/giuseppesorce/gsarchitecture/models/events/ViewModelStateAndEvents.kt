@@ -17,6 +17,7 @@ data class ArticleHeadline(var value:String)
 
 
 sealed class BeerListState{
+    data class ShowOneBer(var name:String): BeerListState()
 
 }
 

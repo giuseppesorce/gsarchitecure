@@ -2,12 +2,9 @@
 
 package com.giuseppesorce.architecture.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
-import com.giuseppesorce.architecture.*
-
-
+import com.giuseppesorce.architecture.LoadingState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -21,14 +18,9 @@ open class BaseFlowViewModel<State : Any, Event : Any> : ViewModel() {
     protected val _uiEvent = MutableStateFlow<Event?>(null)
     val uiEvent: StateFlow<Event?> = _uiEvent
 
-
     // Loader
     protected val _loadingState = MutableStateFlow<LoadingState>(LoadingState.Empty())
     val loadingState: StateFlow<LoadingState> = _loadingState
-
-
-
-
 
      var viewState: State?
         get() = uiState.value
@@ -78,18 +70,14 @@ open class BaseFlowViewModel<State : Any, Event : Any> : ViewModel() {
     }
 
     protected fun showError(message: String = "") {
-
     }
 
     protected fun showUnknownError() {
-
     }
 
     fun dismissError() {
-
     }
 
     fun clearCommonState() {
-
     }
 }

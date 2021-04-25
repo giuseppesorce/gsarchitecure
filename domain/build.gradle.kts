@@ -51,8 +51,8 @@ dependencies {
     kapt(DI.HILT_KAPT)
     kaptAndroidTest(DI.HILT_ANDROID_KAPT_TEST)
     kaptTest(DI.HILT_KAPT_TEST)
-    implementation(DI.HILT_VIEWMODEL)
-    kapt(DI.HILT_COMPILER)
+//    implementation(DI.HILT_VIEWMODEL)
+//    kapt(DI.HILT_COMPILER)
 
     // Retrofit
     implementation(Network.RETROFIT)

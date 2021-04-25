@@ -61,9 +61,9 @@ dependencies {
     implementation(Kotlin.SERIALITATION_JSON)
     implementation(Kotlin.COROUTINES_ANDROID)
     implementation(Kotlin.SERIALITATPION_JVM)
-    implementation(Network.LOGGING_STYLE_PRINT)
+
     implementation(Deps.TIMBE_DEP)
-    //TESTING
+    //TESTING./gr   w
     testImplementation(TestingLib.JUNIT)
     testImplementation(AndroidTestingLib.RETROFIT_MOCK)
     testImplementation(MockingLib.MOCK_COROUTINES)

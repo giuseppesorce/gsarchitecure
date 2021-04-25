@@ -1,7 +1,5 @@
 package com.giuseppesorce.architecture
 
-
-
 data class SimpleAlertData(
     val title: String="",
     var message: String="",

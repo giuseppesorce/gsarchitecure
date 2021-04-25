@@ -9,7 +9,7 @@ object Vers {
 
     const val GRADLE = "4.1.1"
     const val KOTLIN = "1.4.30"
-    const val HILT = "2.33-beta"
+    const val HILT = "2.35"
     const val COREKTX = "1.3.2"
     const val APPCOMPACT = "1.2.0"
     const val CONSTRAINTLAYOUT = "2.0.4"
@@ -29,7 +29,7 @@ object Vers {
     const val CAMERAX_VIEW = "1.0.0-alpha22"
     const val EASY_PERMISSION_VERS = "3.0.0"
     //dagger version
-    const val DAGGER_VERSION = "2.33"
+    const val DAGGER_VERSION = "2.35"
     //Room
     const val ROOM = "2.2.5"
     //Coroutines
@@ -45,8 +45,8 @@ object Vers {
     const val MATERIAL_VERS = "1.3.0"
 
     const val FRAGMENT_KTXT_VERS = "2.3.3"
-    const val LIFECYCLE_VIEWMODEL = "1.0.0-alpha02"
-    const val HILT_COMPILER = "1.0.0-alpha03"
+    const val LIFECYCLE_VIEWMODEL = "1.0.0-alpha03"
+    const val HILT_COMPILER = "1.0.0-beta01"
     const val SERIALITATION = "1.1.0"
     const val K_SERIALITATION_CONVERTER = "0.8.0"
     const val KOTLIN_SERIALITATION = "1.0.0"

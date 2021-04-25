@@ -1,6 +1,5 @@
 package com.giuseppesorce.network.interceptors
 
-
 import com.giuseppesorce.network.data.NetworkEnvironment
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
@@ -22,7 +21,7 @@ constructor(var environment: NetworkEnvironment) : Interceptor {
 
         val builder = request.newBuilder()
         if (environment.authorization.isNotEmpty()) {
-            builder.addHeader("Authorization", "Bearer ${environment.authorization}")
+         //   builder.addHeader("Authorization", "Bearer ${environment.authorization}")
         }
         return chain.proceed(builder.build())
     }

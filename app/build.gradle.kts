@@ -53,17 +53,14 @@ dependencies {
     implementation(project(":architecture"))
     implementation(project(":domain"))
     implementation(project(":data"))
-
-
+    implementation(project(":network"))
     //dipendencies
     implementation(Deps.KOTLIN_STLIB)
     implementation(Deps.coreKtx)
     implementation(Deps.appCompact)
     implementation(Deps.constraintLayout)
     implementation(Deps.UIDesign.material_design)
-
-
-    //DIPENDENCY INJECTION
+    //DI
     //dagger
     implementation(DI.DAGGER_DEP)
     kapt(DI.DAGGER_ANNOTATION)
@@ -72,8 +69,8 @@ dependencies {
     kapt(DI.HILT_KAPT)
     kaptAndroidTest(DI.HILT_ANDROID_KAPT_TEST)
     kaptTest(DI.HILT_KAPT_TEST)
-    implementation(DI.HILT_VIEWMODEL)
-    kapt(DI.HILT_COMPILER)
+  //  implementation(DI.HILT_VIEWMODEL)
+//    kapt(DI.HILT_COMPILER)
 
     // ViewModel
     implementation(Deps.ViewModel.VIEMODEL_DEP)
@@ -106,6 +103,7 @@ dependencies {
     implementation(Network.RETROFIT)
     implementation(Network.OKHTTP)
     implementation(Network.KOTLIN_SER_CONVERTER)
+
     // Interceptors
     implementation(Network.LOGGIG_INTERCEPTOR)
     //Coil

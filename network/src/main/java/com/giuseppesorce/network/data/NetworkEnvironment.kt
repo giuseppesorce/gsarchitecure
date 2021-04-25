@@ -9,6 +9,6 @@ import javax.inject.Singleton
 @Singleton
  class NetworkEnvironment  @Inject constructor() {
        var authorization:String=""
-       var base_url:String=""
+       var base_url:String="https://api.punkapi.com/"
 
 }
